@@ -222,18 +222,18 @@ include_directories(external/cxxopts)
 add_library(crypto STATIC ${BASE_CRYPTO})
 
 set(SOURCES
-  src/turtlecoin-crypto.cpp
+  src/chimera-crypto.cpp
 )
 
-add_library(turtlecoin-crypto-static STATIC ${SOURCES})
-target_link_libraries(turtlecoin-crypto-static crypto argon2)
+add_library(chimera-crypto-static STATIC ${SOURCES})
+target_link_libraries(chimera-crypto-static crypto argon2)
 
 if(NOT BUILD_JS AND NOT BUILD_WASM)
   if(WIN32)
-    add_library(turtlecoin-crypto-shared SHARED ${SOURCES})
-    target_link_libraries(turtlecoin-crypto-shared crypto argon2)
-    target_link_libraries(turtlecoin-crypto-static ws2_32)
-    target_link_libraries(turtlecoin-crypto-shared ws2_32)
+    add_library(chimera-crypto-shared SHARED ${SOURCES})
+    target_link_libraries(chimera-crypto-shared crypto argon2)
+    target_link_libraries(chimera-crypto-static ws2_32)
+    target_link_libraries(chimera-crypto-shared ws2_32)
   endif()
 
   set(CRYPTOTEST_SOURCES
@@ -241,15 +241,15 @@ if(NOT BUILD_JS AND NOT BUILD_WASM)
   )
 
   add_executable(cryptotest ${CRYPTOTEST_SOURCES})
-  target_link_libraries(cryptotest turtlecoin-crypto-static)
+  target_link_libraries(cryptotest chimera-crypto-static)
   set_property(TARGET cryptotest PROPERTY OUTPUT_NAME "cryptotest")
 else()
   set(JAVSCRIPT_SOURCES
-    src/turtlecoin-crypto-js.cpp
+    src/chimera-crypto-js.cpp
   )
 
-  add_executable(turtlecoin-crypto ${JAVSCRIPT_SOURCES})
-  target_link_libraries(turtlecoin-crypto turtlecoin-crypto-static)
+  add_executable(chimera-crypto ${JAVSCRIPT_SOURCES})
+  target_link_libraries(chimera-crypto turtlecoin-crypto-static)
 
   # Override our release flags for emscripten compatibility
   set(CMAKE_C_FLAGS_DEBUG "")
@@ -262,7 +262,7 @@ else()
     --llvm-lto 3
     --closure 1
     -s SINGLE_FILE=1
-    -s EXPORT_NAME="'TurtleCoinCrypto'"
+    -s EXPORT_NAME="'ChimeraCrypto'"
     -s POLYFILL_OLD_MATH_FUNCTIONS=1
     -s MODULARIZE=1
     --bind
