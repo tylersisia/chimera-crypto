@@ -1,7 +1,7 @@
 {
-  "name": "turtlecoin-crypto",
+  "name": "chimera-crypto",
   "version": "3.1.0",
-  "description": "Node C++ Addon for TurtleCoin Cryptographic Functions",
+  "description": "Node C++ Addon for chimera Cryptographic Functions",
   "main": "index.js",
   "scripts": {
     "build": "node-gyp build",
@@ -10,16 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/turtlecoin/turtlecoin-crypto.git"
+    "url": "git+https://github.com/tylersisia/chimera-crypto.git"
   },
   "bugs": {
-    "url": "https://github.com/turtlecoin/turtlecoin-crypto/issues"
+    "url": "https://github.com/tylersisia/chimera-crypto/issues"
   },
   "engines": {
     "node": ">=6"
   },
   "engineStrict": true,
-  "homepage": "https://github.com/turtlecoin/turtlecoin-crypto#readme",
+  "homepage": "https://github.com/tylersisia/chimera-crypto#readme",
   "author": "The TurtleCoin Developers",
   "license": "GPL-3.0",
   "dependencies": {
