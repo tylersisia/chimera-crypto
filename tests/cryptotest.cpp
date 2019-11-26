@@ -10,7 +10,7 @@
 
 #include <cxxopts.hpp>
 
-#include <turtlecoin-crypto.h>
+#include <chimera-crypto.h>
 
 #define PERFORMANCE_ITERATIONS  1000
 #define PERFORMANCE_ITERATIONS_LONG_MULTIPLIER 10
