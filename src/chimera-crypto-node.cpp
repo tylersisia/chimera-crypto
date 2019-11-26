@@ -5,7 +5,7 @@
 #include <iostream>
 #include <nan.h>
 #include <stdio.h>
-#include <turtlecoin-crypto.h>
+#include <chimera-crypto.h>
 #include <v8.h>
 
 using BinaryArray = std::vector<uint8_t>;
@@ -2086,4 +2086,4 @@ NAN_MODULE_INIT(InitModule)
         Nan::GetFunction(Nan::New<v8::FunctionTemplate>(chukwa_slow_hash)).ToLocalChecked());
 }
 
-NODE_MODULE(turtlecoincrypto, InitModule);
+NODE_MODULE(chimeracrypto, InitModule);
