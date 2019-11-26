@@ -7,25 +7,25 @@
 const assert = require('assert')
 const describe = require('mocha').describe
 const it = require('mocha').it
-const TurtleCoinCrypto = require('../')
+const ChimeraCrypto = require('../')
 
 describe('Core Cryptography', () => {
   it('Generate Random Keys', () => {
-    const [err, keys] = TurtleCoinCrypto.generateKeys()
+    const [err, keys] = ChimeraCrypto.generateKeys()
 
     assert(!err && (keys))
   })
 
   it('Check Key - Public Key', () => {
     const key = '7849297236cd7c0d6c69a3c8c179c038d3c1c434735741bb3c8995c3c9d6f2ac'
-    const isValid = TurtleCoinCrypto.checkKey(key)
+    const isValid = ChimeraCrypto.checkKey(key)
 
     assert(isValid === true)
   })
 
   it('Check Key - Private Key', () => {
     const key = '4a078e76cd41a3d3b534b83dc6f2ea2de500b653ca82273b7bfad8045d85a400'
-    const isValid = TurtleCoinCrypto.checkKey(key)
+    const isValid = ChimeraCrypto.checkKey(key)
 
     assert(isValid === false)
   })
@@ -33,68 +33,68 @@ describe('Core Cryptography', () => {
   it('Secret Key to Public Key', () => {
     const key = '4a078e76cd41a3d3b534b83dc6f2ea2de500b653ca82273b7bfad8045d85a400'
 
-    const [err, generatedKey] = TurtleCoinCrypto.secretKeyToPublicKey(key)
+    const [err, generatedKey] = ChimeraCrypto.secretKeyToPublicKey(key)
 
     assert(!err && generatedKey === '7849297236cd7c0d6c69a3c8c179c038d3c1c434735741bb3c8995c3c9d6f2ac')
   })
 
   it('Generate Key Derivation', () => {
-    const [err, derivation] = TurtleCoinCrypto.generateKeyDerivation('3b0cc2b066812e6b9fcc42a797dc3c723a7344b604fd4be0b22e06254ff57f94', '6968a0b8f744ec4b8cea5ec124a1b4bd1626a2e6f31e999f8adbab52c4dfa909')
+    const [err, derivation] = ChimeraCrypto.generateKeyDerivation('3b0cc2b066812e6b9fcc42a797dc3c723a7344b604fd4be0b22e06254ff57f94', '6968a0b8f744ec4b8cea5ec124a1b4bd1626a2e6f31e999f8adbab52c4dfa909')
 
     assert(!err && derivation === '4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20')
   })
 
   it('Derive Public Key', () => {
-    const [err, publicKey] = TurtleCoinCrypto.derivePublicKey('4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20', 2, '854a637b2863af9e8e8216eb2382f3d16616b3ac3e53d0976fbd6f8da6c56418')
+    const [err, publicKey] = ChimeraCrypto.derivePublicKey('4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20', 2, '854a637b2863af9e8e8216eb2382f3d16616b3ac3e53d0976fbd6f8da6c56418')
 
     assert(!err && publicKey === 'bb55bef919d1c9f74b5b52a8a6995a1dc4af4c0bb8824f5dc889012bc748173d')
   })
 
   it('Underive Public Key: Ours', () => {
-    const [err, publicKey] = TurtleCoinCrypto.underivePublicKey('4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20', 2, 'bb55bef919d1c9f74b5b52a8a6995a1dc4af4c0bb8824f5dc889012bc748173d')
+    const [err, publicKey] = ChimeraCrypto.underivePublicKey('4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20', 2, 'bb55bef919d1c9f74b5b52a8a6995a1dc4af4c0bb8824f5dc889012bc748173d')
 
     assert(!err && publicKey === '854a637b2863af9e8e8216eb2382f3d16616b3ac3e53d0976fbd6f8da6c56418')
   })
 
   it('Underive Public Key: Not Ours', () => {
-    const [err, publicKey] = TurtleCoinCrypto.underivePublicKey('4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20', 0, 'bb55bef919d1c9f74b5b52a8a6995a1dc4af4c0bb8824f5dc889012bc748173d')
+    const [err, publicKey] = ChimeraCrypto.underivePublicKey('4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20', 0, 'bb55bef919d1c9f74b5b52a8a6995a1dc4af4c0bb8824f5dc889012bc748173d')
 
     assert(!err && publicKey !== '854a637b2863af9e8e8216eb2382f3d16616b3ac3e53d0976fbd6f8da6c56418')
   })
 
   it('Derive Secret Key', () => {
-    const [err, secretKey] = TurtleCoinCrypto.deriveSecretKey('4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20', 2, 'd9d555a892a85f64916cae1a168bd3f7f400b6471c7b12b438b599601298210b')
+    const [err, secretKey] = ChimeraCrypto.deriveSecretKey('4827dbde0c0994c0979e2f9c046825bb4a065b6e35cabc0290ff5216af060c20', 2, 'd9d555a892a85f64916cae1a168bd3f7f400b6471c7b12b438b599601298210b')
 
     assert(!err && secretKey === 'e52ece5717f01843e3accc4df651d669e339c31eb8059145e881faae19ad4a0e')
   })
 
   it('Generate Key Image', () => {
-    const [err, keyImage] = TurtleCoinCrypto.generateKeyImage('bb55bef919d1c9f74b5b52a8a6995a1dc4af4c0bb8824f5dc889012bc748173d', 'e52ece5717f01843e3accc4df651d669e339c31eb8059145e881faae19ad4a0e')
+    const [err, keyImage] = ChimeraCrypto.generateKeyImage('bb55bef919d1c9f74b5b52a8a6995a1dc4af4c0bb8824f5dc889012bc748173d', 'e52ece5717f01843e3accc4df651d669e339c31eb8059145e881faae19ad4a0e')
 
     assert(!err && keyImage === '5997cf23543ce2e05c327297a47f26e710af868344859a6f8d65683d8a2498b0')
   })
 
   it('Generate Deterministic Subwallet #0', () => {
-    const [err, spendKey] = TurtleCoinCrypto.generateDeterministicSubwalletKeys('dd0c02d3202634821b4d9d91b63d919725f5c3e97e803f3512e52fb0dc2aab0c', 0)
+    const [err, spendKey] = ChimeraCrypto.generateDeterministicSubwalletKeys('dd0c02d3202634821b4d9d91b63d919725f5c3e97e803f3512e52fb0dc2aab0c', 0)
 
     assert(!err && spendKey.secretKey === 'dd0c02d3202634821b4d9d91b63d919725f5c3e97e803f3512e52fb0dc2aab0c')
   })
 
   it('Generate Deterministic Subwallet #1', () => {
-    const [err, spendKey] = TurtleCoinCrypto.generateDeterministicSubwalletKeys('dd0c02d3202634821b4d9d91b63d919725f5c3e97e803f3512e52fb0dc2aab0c', 1)
+    const [err, spendKey] = ChimeraCrypto.generateDeterministicSubwalletKeys('dd0c02d3202634821b4d9d91b63d919725f5c3e97e803f3512e52fb0dc2aab0c', 1)
 
     assert(!err && spendKey.secretKey === 'c55cbe4fd1c49dca5958fa1c7b9212c2dbf3fd5bfec84de741d434056e298600')
   })
 
   it('Generate Deterministic Subwallet #64', () => {
-    const [err, spendKey] = TurtleCoinCrypto.generateDeterministicSubwalletKeys('dd0c02d3202634821b4d9d91b63d919725f5c3e97e803f3512e52fb0dc2aab0c', 64)
+    const [err, spendKey] = ChimeraCrypto.generateDeterministicSubwalletKeys('dd0c02d3202634821b4d9d91b63d919725f5c3e97e803f3512e52fb0dc2aab0c', 64)
 
     assert(!err && spendKey.secretKey === '29c2afed13271e2bb3321c2483356fd8798f2709af4de3906b6627ec71727108')
   })
 
   it('Tree Hash', () => {
     const expectedTreeHash = 'dff9b4e047803822e97fb25bb9acb8320648954e15a6ddf6fa757873793c535e'
-    const [err, treeHash] = TurtleCoinCrypto.tree_hash([
+    const [err, treeHash] = ChimeraCrypto.tree_hash([
       'b542df5b6e7f5f05275c98e7345884e2ac726aeeb07e03e44e0389eb86cd05f0',
       '1b606a3f4a07d6489a1bcd07697bd16696b61c8ae982f61a90160f4e52828a7f',
       'c9fae8425d8688dc236bcdbc42fdb42d376c6ec190501aa84b04a4b4cf1ee122',
@@ -109,7 +109,7 @@ describe('Core Cryptography', () => {
       '1b606a3f4a07d6489a1bcd07697bd16696b61c8ae982f61a90160f4e52828a7f'
     ]
 
-    const [err, treeBranch] = TurtleCoinCrypto.tree_branch([
+    const [err, treeBranch] = ChimeraCrypto.tree_branch([
       'b542df5b6e7f5f05275c98e7345884e2ac726aeeb07e03e44e0389eb86cd05f0',
       '1b606a3f4a07d6489a1bcd07697bd16696b61c8ae982f61a90160f4e52828a7f',
       'c9fae8425d8688dc236bcdbc42fdb42d376c6ec190501aa84b04a4b4cf1ee122',
@@ -149,7 +149,7 @@ describe('Hash Generation Methods', () => {
 
   algos.forEach((algo) => {
     it(algo.name, () => {
-      const [err, hash] = TurtleCoinCrypto[algo.func](testdata)
+      const [err, hash] = ChimeraCrypto[algo.func](testdata)
       assert(algo.hash === hash && !err)
     })
   })
