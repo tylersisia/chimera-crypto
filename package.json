@@ -1,12 +1,13 @@
 {
   "name": "chimera-crypto",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "Node C++ Addon for chimera Cryptographic Functions",
   "main": "index.js",
   "scripts": {
-    "build": "node-gyp build",
-    "install": "node-gyp rebuild",
-    "test": "mocha tests/crypto.js"
+    "build": "node-gyp rebuild",
+    "install": "prebuild-install --download --verbose || node-gyp rebuild",
+    "test": "standard && mocha tests/crypto.js",
+    "testJS": "mocha tests/cryptoJs.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,21 @@
   "dependencies": {
     "bindings": "^1.5.0",
     "nan": "^2.14.0"
+    "prebuild-install": "^5.3.3"
+  },
+  "standard": {
+    "ignore": [
+      "build/*",
+      "emsdk/*",
+      "examples/*",
+      "include/*",
+      "jsbuild/*",
+      "prebuilds/*",
+      "src/*"
+    ]
   },
   "devDependencies": {
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "standard": "^14.3.1"
   }
 }
